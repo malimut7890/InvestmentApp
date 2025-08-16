@@ -1,0 +1,12 @@
+{
+  "strategy": "strategy_dual_ma",
+  "symbol": "ETH/USDT",
+  "days_active": 0,
+  "net_profit_usd": 0,
+  "max_drawdown_usd": 0.0,
+  "max_profit_usd": 0,
+  "total_trades": 0,
+  "total_transactions": 0,
+  "winrate_pct": 0,
+  "profit_factor": 0
+}

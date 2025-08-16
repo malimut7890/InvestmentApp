@@ -1,0 +1,29 @@
+[
+  {
+    "name": "strategy_test",
+    "symbol": "ETH/USDT",
+    "mode": "Paper",
+    "interval": "1m",
+    "exchange": "KUCOIN",
+    "parameters": {},
+    "file_path": "C:\\Users\\Msi\\Desktop\\investmentapp\\strategies\\strategy_test.py"
+  },
+  {
+    "name": "strategy_dual_ma",
+    "symbol": "ETH/USDT",
+    "mode": "Paper",
+    "interval": "1m",
+    "exchange": "MEXC",
+    "parameters": {},
+    "file_path": "C:\\Users\\Msi\\Desktop\\investmentapp\\strategies\\strategy_dual_ma.py"
+  },
+  {
+    "name": "strategy_test",
+    "symbol": "DOGE/USDT",
+    "mode": "Paper",
+    "interval": "1m",
+    "exchange": "KUCOIN",
+    "parameters": {},
+    "file_path": "C:\\Users\\Msi\\Desktop\\investmentapp\\strategies\\strategy_test.py"
+  }
+]

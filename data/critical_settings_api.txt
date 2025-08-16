@@ -1,0 +1,12 @@
+C:\Users\Msi\Desktop\investmentapp\data\critical_settings_api.txt
+# Critical settings for the API tab in InvestmentApp
+# These settings and functionalities are confirmed to work and cannot be changed without explicit user consent.
+
+1. API key management
+   - Description: The API tab allows adding, editing, deleting, and testing API keys for supported exchanges (MEXC, KUCOIN). Each key includes exchange name, API key, API secret, passphrase (for KuCoin), rate limit (requests per minute), and timeout (seconds). Keys are saved in api_keys.json and displayed in a table with columns: Exchange, API Key, Edit, Delete, Test.
+   - How it works: Clicking "Add API Key" opens a window with fields for Exchange (dropdown: MEXC, KUCOIN), API Key, API Secret, Passphrase (required for KuCoin), Limit żądań/min (default 1800), and Timeout (s) (default 10). Editing a key opens a similar window pre-filled with existing values. Deleting removes the key from api_keys.json. Testing validates the key using ccxt.async_support, applying rate_limit_requests and timeout_seconds. Success or error messages are shown via tk.messagebox.
+   - Implementation: In `api.py`, the `ApiTab` class manages the table (ttk.Treeview) and handles add/edit/delete/test actions via `add_api_key`, `on_tree_double_click`, and `update_api_keys_display`. Saves to `api_keys.json` using `json.dump` (UTF-8, indent=4). In `trade_manager.py`, the `simulate` method initializes exchanges with api_key, api_secret, passphrase (for KuCoin), rate_limit_requests, and timeout_seconds (converted to milliseconds). Uses `ccxt.async_support` for async operations. Validates required fields (API Key, API Secret, Passphrase for KuCoin) and positive values for rate_limit_requests and timeout_seconds.
+   - Files: api.py, trade_manager.py, api_keys.json
+   - Status: Implemented, locked
+   - Implementation date: 06.07.2025
+   - Notes: Supports KuCoin passphrase and API limits for robust integration. Appearance and functionality approved.

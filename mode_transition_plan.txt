@@ -1,0 +1,107 @@
+# Path: C:\Users\Msi\Desktop\investmentapp\mode_transition_plan.txt
+
+# Plan budowy schematu przechodzenia między trybami (Symulacja → Live, Auto → Live)
+
+## Etap 1: Wdrożenie mechanizmu monitorowania wyników symulacji
+### Cel: Umożliwienie automatycznego zbierania wyników symulacji do oceny przejścia do trybu Live.
+### Podetapy:
+1. **Weryfikacja wyników symulacji**:
+   - Upewnić się, że `trade_manager.py` zapisuje wyniki symulacji (`202507.json`, `all_trades.json`, `summary.json`) w folderze `simulations/<strategy_name>/<symbol>`.
+   - Status: Wdrożone w tej odpowiedzi.
+2. **Synchronizacja z czacha.json**:
+   - Dodać metodę w `czacha_data.py` do aktualizacji pól `days`, `max_dd`, `max_profit`, `profit_total` w `czacha.json` na podstawie `summary.json` z folderu `simulations`.
+   - Plik: `src/tabs/czacha_data.py`
+   - Status: Do wdrożenia.
+3. **Logowanie wyników**:
+   - Rozszerzyć logowanie w `trade_manager.py`, aby zapisywać szczegóły wyników symulacji (np. liczba transakcji, zysk) w `app.log` i `signals.log`.
+   - Status: Częściowo wdrożone (4.1/5.1).
+
+## Etap 2: Implementacja automatycznego sprawdzania progów awansu/degradacji
+### Cel: Automatyczne sprawdzanie warunków awansu/degradacji na podstawie ustawień z `promotion.json`.
+### Podetapy:
+1. **Wczytywanie ustawień awansu**:
+   - Dodać metodę w `promotion.py` do wczytywania `days`, `promotion_threshold`, `demotion_threshold`, `promotion_increment`, `demotion_decrement`, `max_trade_percent` z `promotion.json`.
+   - Plik: `src/tabs/promotion.py`
+   - Status: Częściowo wdrożone (istnieje `load_promotion_data`).
+2. **Okresowe sprawdzanie wyników**:
+   - Dodać timer w `main.py` (używając `root.after`), który co `days` dni sprawdza wyniki strategii w trybie „Symulacja” lub „Auto” i aktualizuje `% na zagranie` w `czacha.json`.
+   - Plik: `src/core/main.py`
+   - Status: Do wdrożenia.
+3. **Logika awansu/degradacji**:
+   - Zaimplementować logikę w `czacha_data.py`: jeśli `profit_total` w `czacha.json` przekracza `promotion_threshold`, zwiększyć `% na zagranie` o `promotion_increment` (maks. `max_trade_percent`). Jeśli poniżej `demotion_threshold`, zmniejszyć o `demotion_decrement` (min. 0).
+   - Plik: `src/tabs/czacha_data.py`
+   - Status: Do wdrożenia.
+
+## Etap 3: Automatyczne przechodzenie z trybu Auto do Live
+### Cel: Wdrożenie mechanizmu przechodzenia strategii z trybu Auto do Live po spełnieniu warunków z `promotion.json`.
+### Podetapy:
+1. **Wczytywanie ustawień Auto**:
+   - Rozszerzyć `promotion.py` o metodę wczytującą `auto_days` i `required_profit` z `promotion.json`.
+   - Plik: `src/tabs/promotion.py`
+   - Status: Częściowo wdrożone (istnieje `save_auto_settings`).
+2. **Sprawdzanie warunków Auto**:
+   - Dodać metodę w `czacha_data.py`, która co `auto_days` dni sprawdza, czy `profit_total` w `czacha.json` przekracza `required_profit`. Jeśli tak, aktualizuje tryb strategii na „Live” w `strategies.json`.
+   - Plik: `src/tabs/czacha_data.py`
+   - Status: Do wdrożenia.
+3. **Synchronizacja trybu**:
+   - Upewnić się, że zmiana trybu w `strategies.json` aktualizuje tabelkę w `czacha.py` i `strategies_gui.py` poprzez wywołanie `refresh` i `update_strategies_display`.
+   - Pliki: `src/tabs/czacha.py`, `src/tabs/strategies/strategies_gui.py`
+   - Status: Częściowo wdrożone (istnieje synchronizacja w `czacha.py`).
+
+## Etap 4: Monitorowanie trybu Live
+### Cel: Wdrożenie monitorowania rzeczywistych transakcji w trybie Live i zapisu wyników.
+### Podetapy:
+1. **Implementacja zakładki Live**:
+   - Zaktualizować `live.py`, aby wyświetlała tabelkę z kolumnami: Strategia, Symbol, Zagrania, Win Rate %, Sr. Profit %, Max DD %, PF, Status.
+   - Plik: `src/tabs/live/live.py`
+   - Status: Do wdrożenia (4.7).
+2. **Wykonywanie rzeczywistych transakcji**:
+   - Dodać metodę w `trade_manager.py` do wysyłania zleceń kupna/sprzedaży przez API giełdy (np. MEXC) w trybie „Live”, używając `ccxt.create_market_buy_order` i `ccxt.create_market_sell_order`.
+   - Plik: `src/core/trade_manager.py`
+   - Status: Do wdrożenia.
+3. **Zapis wyników Live**:
+   - Rozszerzyć `trade_manager.py`, aby zapisywać wyniki transakcji w `live/<strategy_name>/<symbol>/<year><month>.json` i aktualizować `czacha.json` (pola `profit_live`, `max_dd`, `max_profit`).
+   - Plik: `src/core/trade_manager.py`
+   - Status: Do wdrożenia.
+
+## Etap 5: Testy i walidacja
+### Cel: Zapewnienie niezawodności przechodzenia między trybami poprzez testy jednostkowe i end-to-end.
+### Podetapy:
+1. **Testy jednostkowe wyników**:
+   - Dodać skrypt `test_simulation_results.py` w folderze `tests`, weryfikujący poprawność obliczeń wyników (`profit`, `win_rate`, `max_dd`, `profit_factor`).
+   - Plik: `tests/test_simulation_results.py`
+   - Status: Do wdrożenia (4.2/5.2).
+2. **Testy end-to-end**:
+   - Dodać skrypt `test_mode_transition.py`, który symuluje przejście z trybu „Symulacja” do „Live” i „Auto” do „Live”, sprawdzając zapis danych i aktualizację trybów.
+   - Plik: `tests/test_mode_transition.py`
+   - Status: Do wdrożenia (5.5).
+3. **Mock API dla Symulacja**:
+   - Dodać metodę w `trade_manager.py` do użycia lokalnych danych OHLCV (np. z pliku CSV) w trybie „Symulacja” zamiast API giełdy.
+   - Plik: `src/core/trade_manager.py`
+   - Status: Do wdrożenia (5.3).
+4. **Porównanie wyników Symulacja vs Live**:
+   - Dodać metodę w `trade_manager.py` do porównania wyników z folderów `simulations` i `live`, zapisując różnice w pliku raportu.
+   - Plik: `src/core/trade_manager.py`
+   - Status: Do wdrożenia (4.5).
+
+## Etap 6: Powiadomienia i monitorowanie
+### Cel: Wdrożenie automatycznych powiadomień o błędach i monitorowanie aktywności.
+### Podetapy:
+1. **Powiadomienia o błędach**:
+   - Dodać etykiety błędów w GUI (`strategies_gui.py`, `simulation.py`, `live.py`) dla błędów krytycznych (np. brak danych OHLCV, nieudana transakcja).
+   - Pliki: `src/tabs/strategies/strategies_gui.py`, `src/tabs/simulation/simulation.py`, `src/tabs/live/live.py`
+   - Status: Do wdrożenia (4.9).
+2. **Monitorowanie trybu Live**:
+   - Dodać aktualizację tabelki w `live.py` co 1 minutę, pokazującą status transakcji (np. „Otwarta pozycja”, „Brak pozycji”).
+   - Plik: `src/tabs/live/live.py`
+   - Status: Do wdrożenia (4.7).
+3. **Symulacja błędów**:
+   - Dodać tryb testowy w `trade_manager.py`, który symuluje błędy danych (np. brak danych, flash crash) i zapisuje wyniki w `errors.log`.
+   - Plik: `src/core/trade_manager.py`
+   - Status: Do wdrożenia (4.10).
+
+## Uwagi
+- Wszystkie zmiany muszą zachować zabetonowany wygląd GUI (okno 800x600, zakładki, tabelki, styl `Editable.Treeview`).
+- Logika zapisu danych (`czacha.json`, `strategies.json`, `promotion.json`, `simulations`, `live`) pozostaje bez zmian.
+- Nowe funkcjonalności będą wdrażane krok po kroku, z testami ręcznymi po każdym etapie.
+- Pliki testowe (`test_*.py`) będą aktualizowane równolegle z nowymi funkcjami.

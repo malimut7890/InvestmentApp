@@ -1,0 +1,12 @@
+{
+    "days": 10.0,
+    "promotion_threshold": 25.0,
+    "promotion_increment": 0.2,
+    "max_trade_percent": 5.0,
+    "demotion_threshold": 15.0,
+    "demotion_decrement": 0.25,
+    "auto_settings": {
+        "auto_days": 30.0,
+        "required_profit": 20.0
+    }
+}

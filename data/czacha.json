@@ -1,0 +1,69 @@
+{
+  "total_capital": 10000.0,
+  "strategies": [
+    {
+      "name": "strategy_test",
+      "symbol": "ETH/USDT",
+      "capital_percentage": 10.0,
+      "trade_percentage": 2.0,
+      "start_capital": 1000.0,
+      "capital_current": 1000.0,
+      "is_first_trade": true,
+      "reinvest": "Wyłączona",
+      "promotion": "Włączony",
+      "days": 0,
+      "max_dd": 0.0,
+      "max_profit": 0.0,
+      "profit_live": 0.0,
+      "profit_total": 0.0
+    },
+    {
+      "name": "strategy_dual_ma",
+      "symbol": "ETHUSDT",
+      "capital_percentage": 10.0,
+      "trade_percentage": 2.0,
+      "start_capital": 1000.0,
+      "capital_current": 1000.0,
+      "is_first_trade": true,
+      "reinvest": "Disabled",
+      "promotion": "Enabled",
+      "days": 0,
+      "max_dd": 0.0,
+      "max_profit": 0.0,
+      "profit_live": 0.0,
+      "profit_total": 0.0
+    },
+    {
+      "name": "strategy_test",
+      "symbol": "DOGEUSDT",
+      "capital_percentage": 10.0,
+      "trade_percentage": 2.0,
+      "start_capital": 1000.0,
+      "capital_current": 1000.0,
+      "is_first_trade": true,
+      "reinvest": "Disabled",
+      "promotion": "Enabled",
+      "days": 0,
+      "max_dd": 0.0,
+      "max_profit": 0.0,
+      "profit_live": 0.0,
+      "profit_total": 0.0
+    },
+    {
+      "name": "strategy_test",
+      "symbol": "1000.00",
+      "capital_percentage": 5.0,
+      "trade_percentage": 2.0,
+      "start_capital": 500.0,
+      "capital_current": 500.0,
+      "is_first_trade": true,
+      "reinvest": "Disabled",
+      "promotion": "Enabled",
+      "days": 0,
+      "max_dd": 0.0,
+      "max_profit": 0.0,
+      "profit_live": 0.0,
+      "profit_total": 0.0
+    }
+  ]
+}

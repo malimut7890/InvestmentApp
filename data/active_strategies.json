@@ -1,0 +1,26 @@
+{
+    "strategy_dual_ma_1_BTC/USDT": {
+        "start_date": "2025-07-08",
+        "last_active": "2025-07-09"
+    },
+    "strategy_test_BTC/USDT": {
+        "start_date": "2025-07-08",
+        "last_active": "2025-07-09"
+    },
+    "strategy_dual_ma_4_BTC/USDT": {
+        "start_date": "2025-07-08",
+        "last_active": "2025-07-09"
+    },
+    "strategy_dual_ma_3_SOL/USDT": {
+        "start_date": "2025-07-08",
+        "last_active": "2025-07-09"
+    },
+    "strategy_dual_ma_WBTC/USDT": {
+        "start_date": "2025-07-09",
+        "last_active": "2025-07-09"
+    },
+    "strategy_dual_ma_2_SOL/USDT": {
+        "start_date": "2025-07-09",
+        "last_active": "2025-07-09"
+    }
+}

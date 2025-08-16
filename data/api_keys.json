@@ -1,0 +1,18 @@
+[
+    {
+        "exchange": "MEXC",
+        "api_key": "mx0vglOwrGEP23eyT0",
+        "api_secret": "125225e41269401dbff9b4411214d709",
+        "passphrase": "",
+        "rate_limit_requests": 1800,
+        "timeout_seconds": 10
+    },
+    {
+        "exchange": "KUCOIN",
+        "api_key": "687b997628335c0001f59919",
+        "api_secret": "7943d6fb-3ef9-429c-b44e-f793b16be81a",
+        "passphrase": "qwer1234",
+        "rate_limit_requests": 1800,
+        "timeout_seconds": 10
+    }
+]

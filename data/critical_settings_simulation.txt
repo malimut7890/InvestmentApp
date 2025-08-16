@@ -1,0 +1,21 @@
+C:\Users\Msi\Desktop\investmentapp\data\critical_settings_simulation.txt
+# Critical settings for the Simulation tab in InvestmentApp
+# These settings and functionalities are confirmed to work and cannot be changed without explicit user consent.
+
+1. Simulation tab table
+   - Description: Displays strategies with mode "Symulacja" from strategies.json in a table with fixed column names: Strategia, Symbol, Zagrania, Win Rate, Sr. Profit %, Max DD %, PF, Status, Status, Prog spelniony, Przejscie do LIVE, Data przejscia. Supports editing parameters (via Przejscie do LIVE) and deleting strategies (via Data przejscia).
+   - How it works: Loads strategies with mode "Symulacja" from strategies.json, displaying strategy name and symbol in the Strategia and Symbol columns, with placeholders (empty) for other columns except Przejscie do LIVE (Edit) and Data przejscia (Delete). Double-clicking Przejscie do LIVE opens a window to edit strategy parameters, saving to strategies.json. Double-clicking Data przejscia deletes the strategy from strategies.json. Shows success or error messages in the GUI for edits and deletions.
+   - Implementation: In simulation.py, the SimulationTab class creates a ttk.Treeview with the specified column names, loads strategies via load_simulation_strategies, and handles editing/deleting via on_tree_double_click. Uses strategies_data.py for updating/deleting strategies. Column names are locked and cannot be changed.
+   - Files: simulation.py, strategies_data.py, strategies.json
+   - Status: Implemented, locked
+   - Implementation date: 06.07.2025
+   - Notes: Column names are fixed to ensure consistency.
+
+2. Text fields in Simulation tab
+   - Description: Displays text fields above the table for manual input: Zagrania, Win Rate %, Sr. Profit %, Max DD %, PF, Konieczny zysk %, Ilosc dni symulacji. These fields are for user input only and do not save data to any file or persist between tab switches.
+   - How it works: The fields are created in a ttk.Frame above the table using tk.Label and ttk.Entry with tk.StringVar, initialized as empty. Values entered by the user are not saved to any file (e.g., JSON) and are reset to empty when the tab is reinitialized or switched.
+   - Implementation: In simulation.py, the __init__ method creates the fields with tk.StringVar(value="") and does not include any save functionality. The fields are purely for display and manual input.
+   - Files: simulation.py
+   - Status: Implemented, locked
+   - Implementation date: 06.07.2025
+   - Notes: Ensures no persistent storage of text field data, as per user requirement.

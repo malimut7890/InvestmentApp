@@ -1,0 +1,349 @@
+{
+    "critical_settings": {
+        "window": {
+            "resizable": true,
+            "default_size": "800x600",
+            "locked": true,
+            "description": "Application window is resizable like a browser, with proportional GUI element scaling. Tabs scale proportionally with expand=True and fill='both'."
+        },
+        "api_tab": {
+            "status": "completed",
+            "locked": true,
+            "description": "API tab is untouchable. Includes exchange selection (MEXC), fields for API key and secret, Add button, list of saved keys with Delete and Test buttons. Test button displays result in GUI label. Logging in readable format. Notifications (messagebox) removed, errors logged in app.log with GUI validation (error labels)."
+        },
+        "symbols_tab": {
+            "status": "completed",
+            "locked": true,
+            "description": "Symbols tab is untouchable. Allows adding/removing symbols (e.g., BTC/USDT, AAPL), selecting via checkboxes for strategies, displays top 10 cryptocurrencies excluding stablecoins. Logging in readable format. Notifications (messagebox) removed, errors logged in app.log."
+        },
+        "strategies_tab": {
+            "status": "completed",
+            "locked": true,
+            "description": "Strategies tab is untouchable. Includes Import button (opens strategies folder), table with columns: Name, Mode (dropdown: Live/Simulation/Auto/Disabled), Interval (dropdown: 1m,5m,15m,30m,1h,4h,1d,1w,1mo, normalized for ccxt), Exchange (dropdown from api_keys.json), Edit (window with dynamic indicators and parameters), Backtest (opens window with results: Ilość dni, Profit, Zysk na kapitale, Max DD%, chart with price and signals), Delete (removes strategy from table and strategies.json, without deleting file from strategies folder). Editable columns (Mode, Interval, Exchange, Edit) have distinct background (#E0FFE0). Backtest results saved in backtests/<strategy_name>/<year>/<month>. Logging in readable format. Notifications (messagebox) removed, errors logged in app.log."
+        },
+        "czacha_tab": {
+            "status": "completed",
+            "locked": true,
+            "description": "Czacha tab is untouchable, replaces Brain tab. Includes Total Capital field (small entry beside label in top-left corner, editable, saved in czacha.json), table below with columns: Tryb, Nazwa, Kapitał strategii, % na zagranie, Wartość pozycji, % kapitału całkowitego, Kapitał start, Dni, Max DD%, Max Profit %, Profit Live, Profit Całkowity, Reinwestycja, Awans. Non-editable columns: Tryb, Nazwa, Kapitał strategii, Dni, Max DD%, Max Profit %, Profit Live, Profit Całkowity, Wartość pozycji, Kapitał start. Editable columns (% na zagranie, % kapitału całkowitego, Reinwestycja, Awans) have distinct background (#E0FFE0). Editing % kapitału całkowitego updates Kapitał strategii and Wartość pozycji (if is_first_trade=True). Tryb synced dynamically with strategies.json. Only active strategies (Mode: Live/Simulation/Auto) displayed in table. Removes inactive or deleted strategies from czacha.json, auto-fills columns, saves to czacha.json. Notifications (messagebox) removed, errors logged in app.log with GUI validation (error labels)."
+        },
+        "promotion_tab": {
+            "status": "completed",
+            "locked": true,
+            "description": "Awans tab is untouchable. Includes editable fields: Dni, Próg awansu %, Próg degradacji %, Stopień awansu %, Stopień degradacji %, Max % awans. Values saved in data/promotion.json. Auto settings fields: Ilość dni trybu, Konieczny zysk %. Auto mode starts as Symulacja, switches to Live after achieving required profit % in specified days. All strategies with Awans or Auto mode use the same settings. Field structure is untouchable. Notifications (messagebox) removed, errors logged in app.log with GUI validation (error labels)."
+        },
+        "tab_names": {
+            "status": "locked",
+            "locked": true,
+            "description": "Tab names are untouchable: Czacha, Strategies, Awans, Symbols, API."
+        },
+        "no_polish_characters": {
+            "status": "enforced",
+            "locked": true,
+            "description": "Polish characters (ą, ć, ź, ż, ę, ó, ś, ł, ń) are not allowed in code, except for UI labels (e.g., 'Całkowity kapitał', 'Próg awansu %') and tab names 'Awans' and 'API'. Use ASCII equivalents elsewhere (e.g., 'Mózg' -> 'Czacha', 'Strategie' -> 'Strategies', 'Symbole' -> 'Symbols')."
+        },
+        "no_notifications": {
+            "status": "enforced",
+            "locked": true,
+            "description": "Notifications (messagebox.showinfo, showerror) removed from all tabs (API, Symbols, Strategies, Czacha, Awans). Errors and actions logged in app.log, with GUI validation using error labels."
+        },
+        "folder_structure": {
+            "locked": true,
+            "description": "Folder structure is untouchable: src/core (main.py, trade_manager.py, __init__.py), src/tabs (api.py, symbols.py, czacha.py, promotion.py, __init__.py), src/tabs/strategies (strategies_gui.py, strategies_data.py, strategies_import.py, strategies_backtest.py, strategies_edit.py, __init__.py), data (settings.json, api_keys.json, strategies.json, symbols.json, czacha.json, promotion.json), strategies (strategy_rsi.py, strategy_ma.py, strategy_template.py, strategy_random.py, strategy_moving_average.py, strategy_advanced.py), backtests (<strategy_name>/<year>/<month>/backtest_*.json), simulation (<strategy_name>/<year>/<month>/data.json), live (<strategy_name>/<year>/<month>/data.json), logs (app.log), tests (test_api.py, test_symbols.py, test_strategies.py, test_czacha.py, test_promotion.py, test_strategy_ma.py, test_strategy_moving_average.py, test_strategy_advanced.py)."
+        },
+        "promotion_rules": {
+            "status": "locked",
+            "description": "Rules for promotion and demotion in Awans tab. Saved in data/promotion.json.",
+            "fields": {
+                "days": {
+                    "value": 7.0,
+                    "description": "Interval (in days) for checking strategy performance for promotion/demotion."
+                },
+                "promotion_threshold": {
+                    "value": 25.0,
+                    "description": "Profit threshold (%) in 'days' period to promote a strategy (increase % na zagranie by promotion_increment)."
+                },
+                "promotion_increment": {
+                    "value": 0.2,
+                    "description": "Percentage increase in % na zagranie when promoted."
+                },
+                "max_trade_percent": {
+                    "value": 5.0,
+                    "description": "Maximum % na zagranie for a strategy to limit risk."
+                },
+                "demotion_threshold": {
+                    "value": 15.0,
+                    "description": "Profit threshold (%) in 'days' period below which a strategy is demoted (decrease % na zagranie by demotion_decrement)."
+                },
+                "demotion_decrement": {
+                    "value": 0.25,
+                    "description": "Percentage decrease in % na zagranie when demoted."
+                },
+                "auto_settings": {
+                    "auto_days": {
+                        "value": 30.0,
+                        "description": "Days in Auto mode before checking for switch to Live."
+                    },
+                    "required_profit": {
+                        "value": 20.0,
+                        "description": "Required profit (%) in auto_days to switch from Symulacja to Live."
+                    }
+                }
+            },
+            "logic": {
+                "promotion": "% na zagranie += promotion_increment if profit in 'days' > promotion_threshold, capped at max_trade_percent.",
+                "demotion": "% na zagranie -= demotion_decrement if profit in 'days' < demotion_threshold, minimum 0.",
+                "auto_mode": "Strategy starts in Symulacja, switches to Live if profit > required_profit in auto_days."
+            }
+        },
+        "capital_management": {
+            "status": "locked",
+            "description": "Capital management rules in Czacha tab. Saved in data/czacha.json.",
+            "total_capital": {
+                "value": 55.0,
+                "description": "Editable total capital field in top-left corner, saved in czacha.json."
+            },
+            "table_columns": {
+                "non_editable": ["Tryb", "Nazwa", "Kapitał strategii", "Dni", "Max DD%", "Max Profit %", "Profit Live", "Profit Całkowity", "Wartość pozycji", "Kapitał start"],
+                "editable": ["% na zagranie", "% kapitału całkowitego", "Reinwestycja", "Awans"],
+                "description": "Non-editable columns are calculated or synced. Editable columns (% na zagranie, % kapitału całkowitego, Reinwestycja, Awans) have distinct background (#E0FFE0). Kapitał start is non-editable and calculated as % kapitału całkowitego * Total_capital for first trade."
+            },
+            "calculations": {
+                "Kapitał strategii": "% kapitału całkowitego * Całkowity kapitał",
+                "Wartość pozycji": "Kapitał strategii * (% na zagranie / 100)",
+                "% kapitału całkowitego": "Sum of % kapitału całkowitego for all strategies <= 100%",
+                "Kapitał start": "Calculated as % kapitału całkowitego * Total_capital for first trade, non-editable",
+                "Dni": "Days since strategy start, calculated automatically",
+                "Max DD%": "Maximum drawdown % from backtest or Live mode",
+                "Max Profit %": "Maximum profit % from backtest or Live mode",
+                "Profit Live": "Profit from Live mode transactions",
+                "Profit Całkowity": "Sum of profits from backtest and Live mode",
+                "Reinwestycja": "Enabled/Disabled, determines if profits are reinvested into Kapitał strategii",
+                "Awans": "Enabled/Disabled, determines if strategy follows promotion/demotion rules"
+            },
+            "sync": "Tryb column synced with strategies.json. Only active strategies (Live, Symulacja, Auto) displayed in Czacha table."
+        },
+        "modes": {
+            "status": "locked",
+            "description": "Strategy modes in Strategies and Czacha tabs.",
+            "Symulacja": {
+                "description": "Runs strategy on historical or simulated data without real trades. Results saved in backtests/<strategy_name>/<year>/<month>/backtest_*.json."
+            },
+            "Live": {
+                "description": "Executes real trades on exchange (e.g., MEXC) using API key. Results saved in live/<strategy_name>/<year>/<month>/data.json."
+            },
+            "Backtest": {
+                "description": "Historical test on exchange data. Opens window with symbol selection, shows results: Ilość dni, Profit, Zysk na kapitale, Max DD%. Results saved in backtests/<strategy_name>/<year>/<month>/backtest_*.json."
+            },
+            "Auto": {
+                "description": "Starts in Symulacja, switches to Live after achieving required_profit in auto_days (from promotion.json)."
+            }
+        },
+        "proposals": {
+            "status": "selected",
+            "selected": [
+                {
+                    "name": "backtest_symbols_integration",
+                    "description": "Integrate backtesting in Strategies tab with selected symbols from Symbols tab (via checkboxes)."
+                },
+                {
+                    "name": "advanced_strategies",
+                    "description": "Template for advanced strategies with multiple indicators (e.g., MACD, Bollinger Bands, ROC, TSI, volume) without pandas_ta, with chart preview in edit window."
+                }
+            ],
+            "pending": [
+                {
+                    "name": "capital_curve",
+                    "description": "Awans tab: capital growth chart for all strategies based on backtests (sum of buy/sell signals)."
+                },
+                {
+                    "name": "advanced_indicators",
+                    "description": "Add new indicators (e.g., ROI, ATR) to strategy_advanced.py."
+                },
+                {
+                    "name": "auto_backtests",
+                    "description": "Implement full backtesting in Strategies tab with results saved to data/czacha.json (e.g., Max DD%, Max Profit %, Profit)."
+                },
+                {
+                    "name": "strategy_model",
+                    "description": "Implement a central StrategyModel class or separate czacha_strategies.json file for better synchronization between czacha.json and strategies.json."
+                },
+                {
+                    "name": "table_sorting",
+                    "description": "Add column sorting functionality to the Czacha tab table for better usability with large numbers of strategies."
+                },
+                {
+                    "name": "simulate_position_close",
+                    "description": "Add button in Czacha tab to manually simulate position closure (input PnL) for testing reinvestment logic."
+                },
+                {
+                    "name": "czacha_chart",
+                    "description": "Add button in Czacha tab table to display chart of strategy profit based on backtest or Live mode data."
+                },
+                {
+                    "name": "auto_promotion",
+                    "description": "Implement timer in application to automatically check strategies for promotion/demotion every 'Dni' from Awans tab."
+                },
+                {
+                    "name": "module_logs",
+                    "description": "Introduce separate log files for each tab (e.g., czacha.log, strategies.log) for better debugging."
+                }
+            ],
+            "withdrawn": [
+                {
+                    "name": "brain_tab_positions",
+                    "description": "Brain tab: monitoring open positions withdrawn in favor of capital growth chart."
+                }
+            ],
+            "description": "Selected: backtest integration with symbols, advanced strategies. Pending: capital growth chart, new indicators, automatic backtests, StrategyModel, table sorting, simulation button, Czacha chart, auto promotion, module logs. Withdrawn: position monitoring."
+        },
+        "test_command": {
+            "description": "Commands to run application tests for each tab, executed in order: app, api, symbols, strategies, strategy MA, strategy Moving Average, czacha, promotion, strategy advanced.",
+            "app": "C:\\Users\\Msi\\Desktop\\investmentapp\\venv\\Scripts\\python.exe C:\\Users\\Msi\\Desktop\\investmentapp\\src\\core\\main.py",
+            "api": "C:\\Users\\Msi\\Desktop\\investmentapp\\venv\\Scripts\\python.exe C:\\Users\\Msi\\Desktop\\investmentapp\\tests\\test_api.py",
+            "symbols": "C:\\Users\Msi\\Desktop\\investmentapp\\venv\\Scripts\\python.exe C:\\Users\\Msi\\Desktop\\investmentapp\\tests\\test_symbols.py",
+            "strategies": "C:\\Users\\Msi\\Desktop\\investmentapp\\venv\\Scripts\\python.exe C:\\Users\\Msi\\Desktop\\investmentapp\\tests\\test_strategies.py",
+            "strategy_ma": "C:\\Users\\Msi\\Desktop\\investmentapp\\venv\\Scripts\\python.exe C:\\Users\\Msi\\Desktop\\investmentapp\\tests\\test_strategy_ma.py",
+            "strategy_moving_average": "C:\\Users\\Msi\\Desktop\\investmentapp\\venv\\Scripts\\python.exe C:\\Users\\Msi\\Desktop\\investmentapp\\tests\\test_strategy_moving_average.py",
+            "czacha": "C:\\Users\\Msi\\Desktop\\investmentapp\\venv\\Scripts\\python.exe C:\\Users\\Msi\\Desktop\\investmentapp\\tests\\test_czacha.py",
+            "promotion": "C:\\Users\\Msi\\Desktop\\investmentapp\\venv\\Scripts\\python.exe C:\\Users\\Msi\\Desktop\\investmentapp\\tests\\test_promotion.py",
+            "strategy_advanced": "C:\\Users\\Msi\\Desktop\\investmentapp\\venv\\Scripts\\python.exe C:\\Users\\Msi\\Desktop\\investmentapp\\tests\\test_strategy_advanced.py"
+        },
+        "test_issues": {
+            "description": "Issues identified in tests, reported for confirmation before fixing, unless they impact application launch.",
+            "issues": [
+                {
+                    "test_file": "test_symbols.py",
+                    "test_name": "all_tests",
+                    "description": "File test_symbols.py displayed tests for API tab instead of Symbols tab, indicating incorrect file content. Fixed by restoring correct tests.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_symbols.py",
+                    "test_name": "all_tests",
+                    "description": "File test_symbols.py contained JSON syntax ('true' instead of 'True'), causing NameError. Fixed by restoring correct test code.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_brain.py",
+                    "test_name": "load_active_strategies",
+                    "description": "Table in Brain tab not displaying active strategies (Live, Symulacja, Auto) from data/strategies.json, despite correct loading logic. Fixed by replacing Brain tab with Czacha tab.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_brain.py",
+                    "test_name": "gui_display",
+                    "description": "Brain tab displayed darker background compared to other tabs, possibly due to GUI layer issues. Fixed by replacing Brain tab with Czacha tab with frame clearing and standard ttk styles.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_api.py",
+                    "test_name": "test_api_key",
+                    "description": "Test button in API tab not displaying connection test result. Fixed by adding GUI label for test result.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_czacha.py",
+                    "test_name": "edit_fields",
+                    "description": "Editable fields in Czacha tab table (% na zagranie, % kapitału całkowitego, Reinwestycja) saving values to incorrect columns (e.g., % na zagranie to Reinwestycja). Fixed by correcting column mapping in on_tree_double_click.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_czacha.py",
+                    "test_name": "mode_sync",
+                    "description": "Mode column in Czacha tab not updating dynamically after changing mode in Strategies tab. Fixed by syncing with strategies.json in on_tab_changed and update_strategies_display.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_czacha.py",
+                    "test_name": "edit_total_capital_percentage",
+                    "description": "Editing % kapitału całkowitego does not update Kapitał strategii and Wartość pozycji. Fixed by adding calculations in on_tree_double_click.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_czacha.py",
+                    "test_name": "trade_value_position",
+                    "description": "Wartość pozycji column not positioned correctly. Fixed by moving it between % na zagranie and % kapitału całkowitego in Czacha tab table.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_strategies.py",
+                    "test_name": "import_error",
+                    "description": "ImportError: cannot import name 'StrategyData' from 'src.tabs.strategies.strategies_data'. Fixed by adding StrategyData class to strategies_data.py.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_strategies.py",
+                    "test_name": "import_strategy",
+                    "description": "Import button in Strategies tab not working correctly (file selection closes without adding strategy). Fixed by restoring and simplifying import_strategy function in strategies_import.py, ensuring table refresh in strategies_gui.py, and verifying save in strategies_data.py with absolute path to strategies folder.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_api.py",
+                    "test_name": "add_api_key",
+                    "description": "NameError: name 'printwww' is not defined in test_api.py. Fixed by correcting to 'print'.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_czacha.py",
+                    "test_name": "is_first_trade_error",
+                    "description": "KeyError: 'is_first_trade' in czacha.py save_changes. Fixed by ensuring is_first_trade in czacha.json.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_strategies.py",
+                    "test_name": "update_mode_interval",
+                    "description": "Mode and interval not updating in Strategies tab table. Fixed by adding <<ComboboxSelected>> event in strategies_gui.py and normalizing file_path in strategies_data.py and strategies_import.py.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_czacha.py",
+                    "test_name": "start_capital_non_editable",
+                    "description": "Kapitał start column in Czacha tab changed to non-editable. Updated on_tree_double_click to block editing.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_strategies.py",
+                    "test_name": "exchange_editable",
+                    "description": "Exchange column in Strategies tab made editable with dropdown from api_keys.json. Added update_strategy_exchange in strategies_data.py.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_strategies.py",
+                    "test_name": "edit_parameters",
+                    "description": "Edit column in Strategies tab opens window for editing strategy parameters (e.g., MA period). Added window in on_tree_double_click.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_czacha.py",
+                    "test_name": "editable_background",
+                    "description": "Editable columns in Czacha tab table (% na zagranie, % kapitału całkowitego, Reinwestycja, Awans) use distinct background (#E0FFE0). Updated treeview with Editable.Treeview style.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_strategies.py",
+                    "test_name": "editable_background",
+                    "description": "Editable columns in Strategies tab table (Mode, Interval, Exchange, Edit) use distinct background (#E0FFE0). Updated treeview with Editable.Treeview style.",
+                    "status": "resolved"
+                },
+                {
+                    "test_file": "test_czacha.py",
+                    "test_name": "gui_display",
+                    "description": "Verify that Czacha tab GUI (Total Capital field, table with non-editable columns: Tryb, Nazwa, Kapitał strategii, Dni, Max DD%, Max Profit %, Profit Live, Profit Całkowity, Wartość pozycji, Kapitał start, and editable columns: % na zagranie, % kapitału całkowitego, Reinwestycja, Awans with distinct background) correctly syncs Tryb with strategies.json, updates Kapitał strategii and Wartość pozycji after editing % kapitału całkowitego, and displays Wartość pozycji between % na zagranie and % kapitału całkowitego.",
+                    "status": "awaiting_confirmation"
+                },
+                {
+                    "test_file": "test_strategies.py",
+                    "test_name": "backtest_window",
+                    "description": "Verify that Strategies tab Backtest button opens a window with symbol selection dropdown, results (Ilość dni, Profit, Zysk na kapitale, Max DD%), and chart placeholder.",
+                    "status": "awaiting_confirmation"
+                },
+                {
+                    "test_file": "test_promotion.py",
+                    "test_name": "auto_settings",
+                    "description": "Verify that Awans tab Auto settings fields (Ilość dni trybu, Konieczny zysk %) correctly save to data/promotion.json.",
+                    "status": "awaiting_confirmation"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,12 @@
+C:\Users\Msi\Desktop\investmentapp\data\critical_settings_promotion.txt
+# Krytyczne ustawienia dla zakładki Awans w aplikacji InvestmentApp
+# Te ustawienia i funkcjonalności są potwierdzone działaniem i nie mogą być zmieniane bez wyraźnej zgody użytkownika.
+
+1. Zakładka Awans i tryb Auto
+   - Opis: Wszystkie funkcje w zakładce Awans oraz tryb Auto w Strategiach działają poprawnie, w tym ustawienia promocji i automatyczne uruchamianie strategii.
+   - Jak działa: Zakładka Awans pozwala włączać/wyłączać promocję strategii, zapisywać ustawienia w promotion.json. Tryb Auto w Strategiach automatycznie uruchamia strategie przy backteście lub handlu. Tabelka w Strategiach pozwala wybrać tryb Auto z listy (Live, Symulacja, Auto, Wyłączona).
+   - Implementacja: W `promotion.py` klasa `PromotionTab` używa `ttk.Treeview` i `ttk.Button` dla promocji, zapisuje do `promotion.json` przez `json.dump`. W `strategies_gui.py` tryb Auto w `on_tree_double_click` (kolumna Tryb) używa `ttk.Combobox` z wartościami ["Live", "Symulacja", "Auto", "Wylaczona"]. Połączenie z `strategies_data.py` przez `update_strategy_mode`.
+   - Pliki: promotion.py, strategies_gui.py, test_promotion.py, test_strategies.py
+   - Status: Wdrożona, zabetonowana
+   - Data wdrożenia: 04.07.2025
+   - Uwagi: Funkcjonalność i wygląd zakładki Awans oraz tryb Auto są zatwierdzone, niezmienialne.

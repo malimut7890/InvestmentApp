@@ -1,0 +1,90 @@
+2025-07-07 17:24:31,167 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 17:24:31,173 | WARNING | trade_manager | Found 1 duplicate timestamps in OHLCV data, removing duplicates
+2025-07-07 17:24:31,175 | INFO | trade_manager | OHLCV data verification passed
+2025-07-07 17:24:31,175 | INFO | test_data_validation | Duplicate timestamps test passed
+2025-07-07 17:24:31,176 | INFO | trade_manager | TradeManager event loop closed
+2025-07-07 17:24:31,176 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 17:24:31,178 | ERROR | trade_manager | OHLCV data verification failed: Missing required OHLCV columns
+2025-07-07 17:24:31,178 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 17:24:31,180 | ERROR | trade_manager | OHLCV data verification failed: Negative values in OHLCV data
+2025-07-07 17:24:31,181 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 17:24:31,182 | ERROR | trade_manager | OHLCV data verification failed: Timestamps are not in ascending order
+2025-07-07 17:24:31,182 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 17:24:31,184 | INFO | trade_manager | OHLCV data verification passed
+2025-07-07 17:24:31,184 | INFO | test_data_validation | Valid OHLCV data test passed
+2025-07-07 19:34:52,163 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 19:34:52,183 | WARNING | trade_manager | Found 1 duplicate timestamps in OHLCV data, removing duplicates
+2025-07-07 19:34:52,186 | INFO | trade_manager | OHLCV data verification passed
+2025-07-07 19:34:52,187 | INFO | test_data_validation | Duplicate timestamps test passed
+2025-07-07 19:34:52,190 | INFO | trade_manager | TradeManager event loop closed
+2025-07-07 19:34:52,191 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 19:34:52,193 | ERROR | trade_manager | OHLCV data verification failed: Missing required OHLCV columns
+2025-07-07 19:34:52,193 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 19:34:52,196 | ERROR | trade_manager | OHLCV data verification failed: Negative values in OHLCV data
+2025-07-07 19:34:52,196 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 19:34:52,197 | ERROR | trade_manager | OHLCV data verification failed: Timestamps are not in ascending order
+2025-07-07 19:34:52,197 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 19:34:52,199 | INFO | trade_manager | OHLCV data verification passed
+2025-07-07 19:34:52,200 | INFO | test_data_validation | Valid OHLCV data test passed
+2025-07-07 21:04:11,758 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 21:04:11,764 | WARNING | trade_manager | Found 1 duplicate timestamps in OHLCV data, removing duplicates
+2025-07-07 21:04:11,765 | INFO | trade_manager | OHLCV data verification passed
+2025-07-07 21:04:11,765 | INFO | test_data_validation | Duplicate timestamps test passed
+2025-07-07 21:04:11,766 | INFO | trade_manager | TradeManager event loop closed
+2025-07-07 21:04:11,766 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 21:04:11,768 | ERROR | trade_manager | OHLCV data verification failed: Missing required OHLCV columns
+2025-07-07 21:04:11,768 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 21:04:11,770 | ERROR | trade_manager | OHLCV data verification failed: Negative values in OHLCV data
+2025-07-07 21:04:11,771 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 21:04:11,772 | ERROR | trade_manager | OHLCV data verification failed: Timestamps are not in ascending order
+2025-07-07 21:04:11,773 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 21:04:11,775 | INFO | trade_manager | OHLCV data verification passed
+2025-07-07 21:04:11,775 | INFO | test_data_validation | Valid OHLCV data test passed
+2025-07-07 21:59:16,303 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 21:59:16,314 | WARNING | trade_manager | Found 1 duplicate timestamps in OHLCV data, removing duplicates
+2025-07-07 21:59:16,315 | INFO | trade_manager | OHLCV data verification passed
+2025-07-07 21:59:16,315 | INFO | test_data_validation | Duplicate timestamps test passed
+2025-07-07 21:59:16,316 | INFO | trade_manager | TradeManager event loop closed
+2025-07-07 21:59:16,316 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 21:59:16,318 | ERROR | trade_manager | OHLCV data verification failed: Missing required OHLCV columns
+2025-07-07 21:59:16,321 | INFO | trade_manager | TradeManager event loop closed
+2025-07-07 21:59:16,321 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 21:59:16,324 | ERROR | trade_manager | OHLCV data verification failed: Negative values in OHLCV data
+2025-07-07 21:59:16,325 | INFO | trade_manager | TradeManager event loop closed
+2025-07-07 21:59:16,325 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 21:59:16,327 | ERROR | trade_manager | OHLCV data verification failed: Timestamps are not in ascending order
+2025-07-07 21:59:16,328 | INFO | trade_manager | TradeManager event loop closed
+2025-07-07 21:59:16,328 | INFO | trade_manager | === Initializing TradeManager ===
+2025-07-07 21:59:16,331 | INFO | trade_manager | OHLCV data verification passed
+2025-07-07 21:59:16,331 | INFO | test_data_validation | Valid OHLCV data test passed
+2025-07-07 21:59:16,332 | INFO | trade_manager | TradeManager event loop closed
+2025-07-08 12:17:43,231 | ERROR | Error fetching OHLCV: mexc {"code":10072,"msg":"Api key info invalid"}
+2025-07-08 12:17:43,233 | WARNING | mexc requires to release all resources with an explicit call to the .close() coroutine. If you are using the exchange instance with async coroutines, add `await exchange.close()` to your code into a place when you're done with the exchange and don't need the exchange instance anymore (at the end of your async coroutine).
+2025-07-08 12:17:43,235 | ERROR | Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x000001C85405A550>
+2025-07-08 12:17:43,237 | ERROR | Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x000001C8580CFA10>, 791951.015)])']
+connector: <aiohttp.connector.TCPConnector object at 0x000001C85733A950>
+2025-07-08 12:26:04,557 | ERROR | Error fetching OHLCV: mexc {"code":10072,"msg":"Api key info invalid"}
+2025-07-08 12:26:04,559 | WARNING | mexc requires to release all resources with an explicit call to the .close() coroutine. If you are using the exchange instance with async coroutines, add `await exchange.close()` to your code into a place when you're done with the exchange and don't need the exchange instance anymore (at the end of your async coroutine).
+2025-07-08 12:26:04,561 | ERROR | Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x000001A6A02FC0D0>
+2025-07-08 12:26:04,563 | ERROR | Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x000001A6A0F6F9A0>, 792452.343)])']
+connector: <aiohttp.connector.TCPConnector object at 0x000001A69CCB19D0>
+2025-07-08 12:35:53,119 | ERROR | Error fetching OHLCV: mexc {"code":10072,"msg":"Api key info invalid"}
+2025-07-08 12:35:53,119 | WARNING | mexc requires to release all resources with an explicit call to the .close() coroutine. If you are using the exchange instance with async coroutines, add `await exchange.close()` to your code into a place when you're done with the exchange and don't need the exchange instance anymore (at the end of your async coroutine).
+2025-07-08 12:35:53,119 | ERROR | Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x0000027890016110>
+2025-07-08 12:35:53,120 | ERROR | Unclosed connector
+connections: ['deque([(<aiohttp.client_proto.ResponseHandler object at 0x000002788FFCF9A0>, 793040.906)])']
+connector: <aiohttp.connector.TCPConnector object at 0x000002788F347FD0>
+2025-07-08 12:46:13,918 | INFO | MEXC OHLCV data: [[1751971020000, 108727.88, 108735.0, 108727.87, 108734.99, 1.05970534], [1751971080000, 108734.99, 108797.99, 108734.99, 108797.99, 1.9420534], [1751971140000, 108797.99, 108837.35, 108793.28, 108831.83, 2.96533002], [1751971200000, 108831.83, 108853.64, 108831.83, 108853.63, 1.32766323], [1751971260000, 108853.63, 108874.32, 108853.63, 108874.32, 3.46090537], [1751971320000, 108874.32, 108899.99, 108874.32, 108899.99, 1.71809536], [1751971380000, 108899.99, 108900.0, 108879.82, 108879.82, 1.36024265], [1751971440000, 108879.82, 108879.83, 108879.82, 108879.83, 0.74473163], [1751971500000, 108879.83, 108879.83, 108837.88, 108837.88, 4.61552023], [1751971560000, 108837.88, 108854.06, 108837.88, 108840.0, 0.40462664]]
+2025-07-08 12:46:18,460 | INFO | KuCoin OHLCV data: [[1751971020000, 108726.4, 108738.1, 108726.4, 108738.0, 1.6105293], [1751971080000, 108738.1, 108795.3, 108738.0, 108795.3, 5.31934804], [1751971140000, 108795.8, 108833.1, 108787.8, 108833.0, 4.04624988], [1751971200000, 108833.0, 108853.0, 108825.2, 108853.0, 4.67190312], [1751971260000, 108853.0, 108880.3, 108852.9, 108880.3, 3.73031704], [1751971320000, 108880.3, 108899.3, 108880.3, 108899.3, 1.18199228], [1751971380000, 108899.2, 108899.3, 108883.3, 108883.3, 0.19453946], [1751971440000, 108883.3, 108883.4, 108883.3, 108883.3, 0.15848398], [1751971500000, 108883.2, 108883.2, 108836.7, 108836.7, 0.92421237], [1751971560000, 108839.1, 108847.8, 108839.1, 108840.7, 0.3574356]]
+2025-07-08 13:00:11,551 | ERROR | Error fetching OHLCV: name 'json' is not defined
+2025-07-08 13:02:20,495 | INFO | MEXC OHLCV data: [[1751971980000, 108831.3, 108831.31, 108831.3, 108831.3, 0.63703954], [1751972040000, 108831.3, 108849.54, 108831.3, 108849.54, 1.03574366], [1751972100000, 108849.54, 108850.0, 108814.62, 108814.62, 2.31362107], [1751972160000, 108814.62, 108838.0, 108814.62, 108838.0, 0.33147885], [1751972220000, 108838.0, 108849.01, 108838.0, 108849.0, 0.62052369], [1751972280000, 108849.0, 108849.01, 108825.18, 108825.19, 1.10690393], [1751972340000, 108825.19, 108832.76, 108825.17, 108832.76, 1.6483375], [1751972400000, 108832.76, 108891.87, 108832.76, 108891.87, 1.38468259], [1751972460000, 108891.87, 108891.87, 108891.85, 108891.86, 0.94480937], [1751972520000, 108891.86, 108891.86, 108891.85, 108891.85, 1.06795467]]
+2025-07-08 13:02:25,131 | INFO | KuCoin OHLCV data: [[1751971980000, 108838.2, 108838.3, 108832.0, 108832.0, 0.30749128], [1751972040000, 108832.1, 108847.4, 108832.0, 108847.4, 1.29740947], [1751972100000, 108847.4, 108851.0, 108815.5, 108815.6, 1.69649924], [1751972160000, 108815.6, 108830.0, 108815.6, 108829.9, 5.93968437], [1751972220000, 108829.9, 108845.9, 108829.9, 108845.8, 0.87976504], [1751972280000, 108845.8, 108845.9, 108826.6, 108826.6, 4.8241996], [1751972340000, 108826.7, 108826.7, 108826.6, 108826.6, 0.02302988], [1751972400000, 108826.7, 108883.2, 108826.7, 108872.4, 3.0260716], [1751972460000, 108883.2, 108891.2, 108883.2, 108891.2, 0.28631345], [1751972520000, 108891.1, 108891.2, 108890.7, 108891.2, 0.11117294]]
+2025-07-08 13:18:12,683 | INFO | MEXC OHLCV data: [[1751972940000, 108888.34, 108920.0, 108871.74, 108871.74, 1.88938352], [1751973000000, 108871.74, 108889.98, 108871.74, 108889.84, 1.18182715], [1751973060000, 108889.84, 108897.68, 108889.84, 108897.68, 0.72953241], [1751973120000, 108897.68, 108897.69, 108872.24, 108872.24, 2.87991397], [1751973180000, 108872.24, 108886.3, 108872.24, 108886.29, 1.0842155], [1751973240000, 108886.29, 108947.13, 108886.29, 108947.12, 1.65946015], [1751973300000, 108947.12, 108947.13, 108923.49, 108923.5, 1.37370287], [1751973360000, 108923.5, 108923.51, 108893.48, 108893.48, 2.68766124], [1751973420000, 108893.48, 108893.49, 108893.48, 108893.48, 0.56398407], [1751973480000, 108893.48, 108893.49, 108893.48, 108893.48, 0.10459605]]
+2025-07-08 13:18:15,371 | INFO | KuCoin OHLCV data: [[1751972940000, 108884.9, 108916.6, 108874.9, 108874.9, 1.16907318], [1751973000000, 108874.9, 108888.7, 108874.9, 108885.7, 0.35693487], [1751973060000, 108885.6, 108891.2, 108885.6, 108891.2, 0.88294674], [1751973120000, 108894.7, 108894.7, 108875.0, 108875.0, 1.60216001], [1751973180000, 108875.1, 108875.1, 108875.0, 108875.0, 0.09866573], [1751973240000, 108875.0, 108939.3, 108875.0, 108939.3, 2.64093254], [1751973300000, 108945.4, 108945.4, 108920.0, 108920.0, 1.88902283], [1751973360000, 108920.0, 108920.0, 108906.7, 108906.7, 0.08932715], [1751973420000, 108906.7, 108906.7, 108905.0, 108905.0, 0.30180175], [1751973480000, 108905.0, 108905.1, 108905.0, 108905.0, 0.00021421]]
+2025-07-08 14:32:33,498 | INFO | MEXC OHLCV data: [[1751977380000, 108695.99, 108696.0, 108695.99, 108695.99, 0.37061551], [1751977440000, 108695.99, 108700.0, 108695.99, 108699.99, 0.86322125], [1751977500000, 108699.99, 108705.0, 108699.99, 108704.99, 0.40759549], [1751977560000, 108704.99, 108705.0, 108704.99, 108704.99, 0.42783595], [1751977620000, 108704.99, 108705.0, 108698.0, 108698.0, 1.21524247], [1751977680000, 108698.0, 108698.01, 108692.0, 108692.0, 1.8144282], [1751977740000, 108692.0, 108696.16, 108692.0, 108696.16, 0.43457439], [1751977800000, 108696.16, 108696.16, 108696.15, 108696.15, 1.04227267], [1751977860000, 108696.15, 108696.16, 108696.15, 108696.16, 0.39287619], [1751977920000, 108696.16, 108712.58, 108696.15, 108712.55, 0.37808061]]
+2025-07-08 14:32:36,148 | INFO | KuCoin OHLCV data: [[1751977380000, 108694.9, 108695.0, 108694.9, 108694.9, 0.11620525], [1751977440000, 108694.9, 108695.0, 108694.9, 108695.0, 0.38562002], [1751977500000, 108699.3, 108705.7, 108699.3, 108705.6, 0.36927834], [1751977560000, 108705.7, 108705.7, 108705.6, 108705.7, 0.02353721], [1751977620000, 108705.6, 108705.6, 108693.9, 108695.1, 1.22988268], [1751977680000, 108695.1, 108695.2, 108691.2, 108691.3, 0.55932399], [1751977740000, 108691.3, 108696.4, 108691.2, 108696.3, 2.58321966], [1751977800000, 108696.3, 108696.4, 108696.3, 108696.3, 0.55021685], [1751977860000, 108696.4, 108696.4, 108696.3, 108696.3, 0.0901031], [1751977920000, 108696.3, 108710.3, 108696.3, 108710.3, 0.6523254]]

@@ -1,0 +1,79 @@
+C:\Users\Msi\Desktop\investmentapp\data\critical_settings_strategies.txt
+# Critical settings for the Strategies tab in InvestmentApp
+# These settings and functionalities are confirmed to work and cannot be changed without explicit user consent.
+
+1. Requirements for Strategy Implementation
+   - Description: Every strategy in the strategies folder must implement a Strategy class with specific methods to ensure proper handling by the application.
+   - How it works: Each strategy must define a Strategy class with the following methods:
+     - __init__(self): Initializes strategy parameters (e.g., fast_ema_period, slow_ema_period for strategy_dual_ma).
+     - update_indicators(self, parameters): Updates strategy parameters from a dictionary (from strategies.json).
+     - get_indicators(self, df): Returns a dictionary of indicator values (e.g., fast_ema, slow_ema, adx) for a given pandas DataFrame (df).
+     - get_signals(self, df): Returns a list of signals (buy, sell, None) based on a pandas DataFrame (df).
+   - Implementation: Strategies are loaded dynamically using importlib.util in strategies_logic.py. The get_strategy_indicators function in indicators.py retrieves parameters. The simulate method in trade_manager.py uses get_signals and get_indicators for backtesting and simulation.
+   - Files: strategies_logic.py, indicators.py, trade_manager.py, strategies/strategy_dual_ma.py, strategies/strategy_random.py, strategies/strategy_template.py
+   - Status: Implemented, locked
+   - Implementation date: 06.07.2025
+   - Notes: Ensures all strategies are compatible with the application's dynamic loading and simulation logic.
+
+2. Export results to CSV
+   - Description: Exports backtest results to CSV files in strategy folders (backtests/[strategy_name]/[year]/[month]) and a summary in data/exports/summary_[timestamp].csv. The "Export results to CSV" button saves backtest results in CSV format with columns: strategy, symbol, days, profit, profit_percentage, max_dd_percentage, min_price, max_price.
+   - How it works: Clicking "Export results to CSV" loads all JSON files from backtests/[strategy_name]/*/*/*.json, generates CSV files in the strategy folder and a summary in data/exports/summary_[timestamp].csv. Displays a success or error message in the GUI.
+   - Implementation: In strategies_gui.py, the export_backtest_to_csv method uses glob.glob to load JSON files, pandas.DataFrame to create CSVs, os.makedirs to create folders, and tk.messagebox for messages. Integrated with strategies_backtest.py for JSON result storage.
+   - Files: strategies_gui.py, strategies_backtest.py
+   - Status: Implemented, locked
+   - Implementation date: 04.07.2025
+   - Notes: CSV files are in UTF-8 without BOM. Enables analysis in Excel.
+
+3. Backtest with chart and signals
+   - Description: The backtest in the Strategies tab generates buy/sell signals, displays results (days, profit, max DD%, number of signals), and a chart with the price line (close from ccxt), buy points (green triangles), sell points (red triangles) for the selected symbol or all symbols from symbols.json. Supports the "All" option and a "Period (number of candles)" field with a default of 8760 (1 year for 1h). Uses the strategy's interval from the "Interval" column. Max DD% is always calculated and displayed. The results window is modal and always on top. The chart dynamically displays indicators (e.g., fast_ema, slow_ema, adx) from the strategy's get_indicators method.
+   - How it works: User selects a strategy, symbol (e.g., BTC/USDT or All), period (e.g., 8760 candles for 1h, 525600 for 1m, 365 for 1d), and clicks "Run Backtest". The results window shows days, profit, profit %, max DD%, number of signals, and a chart (matplotlib) with the close price line, buy/sell points, and indicators (e.g., EMA on price chart, ADX on subplot). Results are saved in backtests/[strategy_name]/[year]/[month]. Validates OHLCV data and signal length. Exchanges are standardized (e.g., MEXC in uppercase). The results window stays on top with transient and grab_set.
+   - Implementation: In strategies_backtest.py, the run_backtest function uses ccxt to fetch OHLCV data with the specified period and interval, calls the strategy's get_signals, saves results in JSON with full close data. Ensures non-empty OHLCV data and matching signal length. Converts timestamps to strings (ISO format) for JSON. Calculates Max DD% from the equity curve. In backtest_plot.py, the plot_backtest_results function uses matplotlib.pyplot to draw the price line (df["close"]), buy/sell points (scatter), and dynamic indicators from results["indicators"]. In strategies_gui.py, the "All" option runs backtests for all symbols from symbols.json, the "Period" field sets the number of candles, and the interval is taken from the "Interval" column. Integrated with strategies_gui.py via show_backtest_results using FigureCanvasTkAgg. Exchange standardization in load_exchanges and _on_exchange_selected.
+   - Files: strategies_gui.py, strategies_backtest.py, backtest_plot.py, strategy_dual_ma.py
+   - Status: Implemented, locked
+   - Implementation date: 05.07.2025
+   - Notes: Chart generated in a separate file for modularity. Appearance and functionality approved.
+
+4. Automatic detection of indicators
+   - Description: The application automatically loads indicators defined in the strategy (e.g., fast_ema_period, slow_ema_period, adx_period, adx_threshold for strategy_dual_ma) and displays them in the Edit window in the Strategies tab, allowing modification. GUI notifications for mode, interval, and exchange edits were removed.
+   - How it works: After importing a strategy, clicking "Edit" opens a window with fields for indicators saved in strategies.json and matching the strategy's defined parameters (via get_strategy_indicators). User changes values, clicks "Save", updating strategies.json. Shows success or error message in GUI only for parameter saves and strategy deletion. Mode, interval, and exchange edits are logged only in app.log.
+   - Implementation: In indicators.py, the get_strategy_indicators function loads the strategy and returns defined parameters. In strategies_logic.py, the import_strategy function saves these indicators in strategies.json via add_strategy. In strategies_data.py, the add_strategy method saves defined indicators. In strategies_gui.py, the on_tree_double_click method (Edit column) loads parameters from strategies.json and creates a window with ttk.Frame and tk.Entry for allowed parameters. Removed tk.messagebox.showinfo from _on_mode_selected, _on_interval_selected, _on_exchange_selected, keeping logging to app.log.
+   - Files: strategies_gui.py, strategies_logic.py, indicators.py, strategies_data.py, strategy_dual_ma.py
+   - Status: Implemented, locked
+   - Implementation date: 06.07.2025
+   - Notes: Indicator logic in a separate file for modularity. Fixed error with empty parameters for strategy_dual_ma.
+
+5. Import strategies
+   - Description: Importing strategies in the Strategies tab loads a .py file from the strategies folder, adds the strategy to strategies.json, and displays it in the table (Name, Mode, Symbol, Interval, Exchange, Edit, Backtest, Delete). Validates that the file contains a Strategy class and is not in the utils folder. Supports dynamic strategy loading without editing application code.
+   - How it works: User clicks "Import", selects a .py file from the strategies folder, the application checks if the file contains a Strategy class and is not in the utils folder, loads the strategy name, path, and default parameters, saves to strategies.json, and refreshes the table. Shows a success or error message in the GUI.
+   - Implementation: In strategies_logic.py, the import_strategy function uses tkinter.filedialog.askopenfilename to select the file, os.path to extract the strategy name, importlib.util to validate the Strategy class and load get_strategy_indicators from indicators.py. Checks that the file is not in the utils folder. Integrated with strategies_data.py via add_strategy and update_strategy_parameters for saving to strategies.json. In strategies_gui.py, the import_strategy_wrapper method calls import_strategy and update_strategies_display to refresh the ttk.Treeview. Messages via tk.messagebox.
+   - Files: strategies_gui.py, strategies_logic.py, strategies_data.py, indicators.py, strategy_dual_ma.py, signals_ema.py
+   - Status: Implemented, locked
+   - Implementation date: 05.07.2025
+   - Notes: Integrated with dynamic indicator loading. Application does not require code edits for new strategies.
+
+6. Simulation mode
+   - Description: The Simulation mode in the Strategies tab enables generating virtual trades on historical and live data for any strategy without editing application code. Results are saved in simulations/[strategy_name]/[symbol] for historical simulations and live/[strategy_name]/[symbol] for live simulations. Each simulation generates a CSV file with results and a summary CSV aggregating data from all simulations in the symbol folder.
+   - How it works: User sets the "Symulacja" mode in the Mode column or clicks "Run Historical Simulation", triggering the simulate method in trade_manager.py. For historical data, it generates trades based on OHLCV from ccxt. For live data, it fetches real-time data from the MEXC API and generates signals per interval. Individual simulation results are saved in CSV files (e.g., simulation_[timestamp].csv) with columns: strategy, symbol, days, total_trades, win_rate_percentage, avg_profit_percentage, max_dd_percentage, profit_factor, profit_percentage. A summary CSV (summary.csv) in the symbol folder aggregates data with columns: total_transactions, active_days, trades, win_rate_percentage, avg_profit_percentage, max_dd_percentage, profit_factor, profit_percentage.
+   - Implementation: In trade_manager.py, the simulate method uses ccxt.async_support for data fetching, generates signals via strategy's get_signals, calculates metrics (total trades, win rate, etc.), and saves results to CSV using pandas.DataFrame. The generate_summary_csv method aggregates all simulation CSVs in the symbol folder. In strategies_gui.py, the _on_mode_selected method triggers live simulation, and run_historical_simulation triggers historical simulation. Integrated with symbols.json for symbol selection and strategies.json for parameters.
+   - Files: trade_manager.py, strategies_gui.py, strategy_dual_ma.py
+   - Status: Implemented, locked
+   - Implementation date: 06.07.2025
+   - Notes: Ensures flexibility for future strategies. CSV files are in UTF-8 without BOM.
+
+7. Symbols column in Strategies tab
+   - Description: The Symbols column in the Strategies tab table displays the selected symbol for each strategy (from strategies.json, field symbol) and allows selecting a single symbol from a dropdown of active symbols (active: true from symbols.json).
+   - How it works: Double-clicking the Symbols column opens a window with a readonly ttk.Combobox containing active symbols retrieved via SymbolsTab.get_active_symbols(). Selecting a symbol and clicking "Save" updates the symbol field in strategies.json for the strategy using StrategyData.update_strategy_symbol(). The table refreshes to show the updated symbol. The dropdown dynamically updates when active symbols change in symbols.json (e.g., adding a new symbol with active: true or toggling active status).
+   - Implementation: In strategies_gui.py, the on_tree_double_click method for column #3 (Symbol) creates a Toplevel window with a ttk.Combobox populated by SymbolsTab.get_active_symbols(). The _on_symbol_selected method saves the selected symbol via StrategyData.update_strategy_symbol() and refreshes the table. In main.py, StrategiesTab is initialized with a SymbolsTab instance to access get_active_symbols(). The update_strategies_display method loads the symbol from strategies.json for display.
+   - Files: strategies_gui.py, strategies_data.py, symbols.py, main.py, strategies.json, symbols.json
+   - Status: Implemented, locked
+   - Implementation date: 06.07.2025
+   - Notes: Ensures dynamic symbol updates and consistency with Symbols tab.
+
+8. Mode column in Strategies tab
+   - Description: The Mode column in the Strategies tab table allows selecting the mode for each strategy (Symulacja, Live, Wyłączona) from a dropdown. The selected mode is saved in strategies.json.
+   - How it works: Double-clicking the Mode column opens a window with a readonly ttk.Combobox containing the modes ["Live", "Symulacja", "Wylaczona"]. Selecting a mode and clicking "Save" updates the mode field in strategies.json using StrategyData.update_strategy_mode(). If "Symulacja" is selected, a live simulation is started for the strategy's symbol and interval. The table refreshes to show the updated mode.
+   - Implementation: In strategies_gui.py, the on_tree_double_click method for column #2 (Mode) creates a Toplevel window with a ttk.Combobox populated with ["Live", "Symulacja", "Wylaczona"]. The _on_mode_selected method saves the mode via StrategyData.update_strategy_mode() and triggers a live simulation if needed. Integrated with trade_manager.py for simulation logic.
+   - Files: strategies_gui.py, strategies_data.py, trade_manager.py, strategies.json
+   - Status: Implemented, locked
+   - Implementation date: 06.07.2025
+   - Notes: Removal of Auto mode ensures only Symulacja, Live, and Wyłączona are available.

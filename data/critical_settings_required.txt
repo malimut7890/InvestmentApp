@@ -1,0 +1,48 @@
+C:\Users\Msi\Desktop\investmentapp\data\critical_settings_required.txt
+# Wymagania dla strategii w aplikacji InvestmentApp
+# Te wymagania muszą być spełnione, aby aplikacja poprawnie wczytywała strategie bez błędów.
+
+1. Struktura strategii
+   - Opis: Każda strategia musi być plikiem .py w folderze C:\Users\Msi\Desktop\investmentapp\strategies, zawierającym klasę Strategy z metodami get_indicators, update_indicators i get_signals.
+   - Jak działa: Aplikacja wczytuje pliki .py z folderu strategies, waliduje klasę Strategy i jej metody. Metoda get_indicators zwraca słownik z nazwami i wartościami podwskaźników (np. fast_ema_period, slow_ema_period). Metoda update_indicators aktualizuje parametry. Metoda get_signals generuje sygnały buy/sell/hold na podstawie danych OHLCV.
+   - Implementacja: W `strategies_logic.py` funkcja import_strategy używa importlib.util do wczytania pliku i walidacji klasy Strategy. Metoda get_indicators wczytywana przez indicators.py dla GUI. Przykładowa strategia: strategy_dual_ma.py z metodami dla EMA i ADX.
+   - Pliki: strategies/strategy_dual_ma.py, strategies_logic.py, indicators.py
+   - Status: Wdrożona, zabetonowana
+   - Data wdrożenia: 05.07.2025
+   - Uwagi: Zapewnia dynamiczne wczytywanie strategii bez edycji kodu aplikacji.
+
+2. Moduły pomocnicze
+   - Opis: Funkcje pomocnicze (np. obliczanie EMA, ADX) muszą być w folderze strategies/utils, aby oddzielić logikę od strategii.
+   - Jak działa: Strategie importują moduły z strategies/utils (np. signals_ema.py dla calculate_ema). Pliki w utils są dostępne dla wszystkich strategii, ale nie wczytywane jako strategie.
+   - Implementacja: W `strategy_dual_ma.py` import calculate_ema z signals_ema.py. Walidacja w strategies_logic.py blokuje import plików z utils jako strategie.
+   - Pliki: strategies/utils/signals_ema.py, strategy_dual_ma.py, strategies_logic.py
+   - Status: Wdrożona, zabetonowana
+   - Data wdrożenia: 05.07.2025
+   - Uwagi: Utrzymuje modularność i przejrzystość kodu.
+
+3. Sygnały strategii
+   - Opis: Strategia musi generować sygnały buy, sell lub hold w metodzie get_signals, zgodne z danymi OHLCV (timestamp, open, high, low, close, volume).
+   - Jak działa: Metoda get_signals przyjmuje DataFrame z OHLCV i zwraca listę sygnałów (buy, sell, hold) o tej samej długości co dane. Sygnały używane w backteście i symulacji.
+   - Implementacja: W `strategy_dual_ma.py` get_signals generuje buy/sell na podstawie przecięć EMA z filtrem ADX. W `strategies_backtest.py` i `trade_manager.py` sygnały są przetwarzane na transakcje.
+   - Pliki: strategy_dual_ma.py, strategies_backtest.py, trade_manager.py
+   - Status: Wdrożona, zabetonowana
+   - Data wdrożenia: 05.07.2025
+   - Uwagi: Zapewnia spójność sygnałów dla backtestu i symulacji.
+
+4. Dynamiczna wizualizacja wskaźników
+   - Opis: Wykres backtestu musi dynamicznie wyświetlać wskaźniki zdefiniowane w get_indicators strategii (np. fast_ema, slow_ema na wykresie cenowym, adx na podwykresie).
+   - Jak działa: Strategia przekazuje wskaźniki w wynikach backtestu, które są rysowane przez plot_backtest_results. Wskaźniki inne niż adx rysowane na wykresie cenowym, adx na podwykresie z progiem.
+   - Implementacja: W `strategies_backtest.py` run_backtest oblicza wskaźniki z get_indicators i dodaje do wyników. W `backtest_plot.py` plot_backtest_results rysuje linie dla wskaźników z results["indicators"].
+   - Pliki: strategies_backtest.py, backtest_plot.py, strategy_dual_ma.py
+   - Status: Wdrożona, zabetonowana
+   - Data wdrożenia: 05.07.2025
+   - Uwagi: Umożliwia elastyczną wizualizację dla przyszłych strategii.
+
+5. Tryb Symulacja
+   - Opis: Strategia musi obsługiwać tryb Symulacja (historyczny i live) generujący wirtualne transakcje na podstawie sygnałów, bez edycji kodu aplikacji.
+   - Jak działa: Tryb Symulacja w kolumnie Tryb uruchamia metodę simulate w trade_manager.py, która generuje sygnały na danych historycznych lub live z API MEXC. Wyniki zapisywane w simulations/[strategy_name]/[year]/[month].
+   - Implementacja: W `trade_manager.py` metoda simulate używa ccxt.async_support dla danych live i historycznych. W `strategies_gui.py` tryb Symulacja uruchamia simulate przez asyncio. Strategia (np. strategy_dual_ma.py) dostarcza sygnały przez get_signals.
+   - Pliki: trade_manager.py, strategies_gui.py, strategy_dual_ma.py
+   - Status: Wdrożona, zabetonowana
+   - Data wdrożenia: 05.07.2025
+   - Uwagi: Zapewnia dynamiczną obsługę przyszłych strategii.

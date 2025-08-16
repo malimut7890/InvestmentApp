@@ -1,0 +1,30 @@
+C:\Users\Msi\Desktop\investmentapp\data\critical_settings_symbols.txt
+# Critical settings for the Symbols tab in InvestmentApp
+# These settings and functionalities are confirmed to work and cannot be changed without explicit user consent.
+
+1. Symbol input and addition
+   - Description: Allows adding a new symbol (e.g., BTC/USDT) to symbols.json with an active status checkbox.
+   - How it works: User enters a symbol in a text field, checks/unchecks the "Active" checkbox, and clicks "Add". The symbol is added to symbols.json with the specified active status (true/false). If the symbol already exists, an error message is shown via tk.messagebox. The input field is cleared after adding.
+   - Implementation: In symbols.py, the add_symbol method uses tk.Entry for input, tk.Checkbutton for active status, and ttk.Button for adding. Validates for duplicate symbols and saves to symbols.json with json.dump (UTF-8, indent=4). Uses tk.messagebox for success/error messages.
+   - Files: symbols.py, data/symbols.json
+   - Status: Implemented, locked
+   - Implementation date: 06.07.2025
+   - Notes: Input field, checkbox, and button are placed in a ttk.Frame above the table. Appearance and functionality approved.
+
+2. Symbols table
+   - Description: Displays a table with columns: Symbol, Active (Yes/No), Delete. Allows toggling active status and deleting symbols.
+   - How it works: The table (ttk.Treeview) shows all symbols from symbols.json. Double-clicking the "Active" column toggles the active status (true/false) in symbols.json. Double-clicking the "Delete" column removes the symbol from symbols.json. Changes are saved immediately, and the table is refreshed.
+   - Implementation: In symbols.py, the update_symbols_display method populates the ttk.Treeview with data from symbols.json. The on_tree_double_click method handles double-click events for Active (#2) and Delete (#3) columns, updating symbols.json via json.dump. Uses tk.messagebox for success messages on deletion.
+   - Files: symbols.py, data/symbols.json
+   - Status: Implemented, locked
+   - Implementation date: 06.07.2025
+   - Notes: Columns are fixed-width (100 pixels), centered. Appearance and functionality approved.
+
+3. Get active symbols method
+   - Description: Provides a method to retrieve a list of active symbols (active: true) from symbols.json for use in other tabs (e.g., Strategies).
+   - How it works: The get_active_symbols method returns a list of symbols where active is true. Used by StrategiesTab to populate the Symbols column dropdown, backtest, and historical simulation.
+   - Implementation: In symbols.py, the get_active_symbols method loads symbols.json and filters symbols with active: true. Logs retrieval and errors to app.log.
+   - Files: symbols.py, data/symbols.json
+   - Status: Implemented, locked
+   - Implementation date: 06.07.2025
+   - Notes: Ensures dynamic symbol updates across tabs. Method is reusable for future tabs (e.g., trades.py, portfolio.py).

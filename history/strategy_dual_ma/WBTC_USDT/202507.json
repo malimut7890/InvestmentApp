@@ -1,0 +1,20 @@
+{
+    "strategy": "strategy_dual_ma",
+    "symbol": "WBTC/USDT",
+    "trades": [
+        {
+            "entry_time": "2025-07-06T01:18:00",
+            "exit_time": "2025-07-06T02:19:00",
+            "entry_price": 108138.0,
+            "exit_price": 108135.0,
+            "profit": -3.0
+        }
+    ],
+    "days": 0,
+    "total_trades": 1,
+    "win_rate_percentage": 0.0,
+    "avg_profit_percentage": -0.03,
+    "max_dd_percentage": 0.03,
+    "profit_factor": 0.0,
+    "profit_percentage": -0.03
+}

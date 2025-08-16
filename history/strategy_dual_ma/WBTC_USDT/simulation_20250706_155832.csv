@@ -1,0 +1,2 @@
+strategy,symbol,days,total_trades,win_rate_percentage,avg_profit_percentage,max_dd_percentage,profit_factor,profit_percentage
+strategy_dual_ma,WBTC/USDT,0,2,100.0,3.1877000000000404,0,inf,6.375400000000081

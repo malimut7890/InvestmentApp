@@ -1,0 +1,31 @@
+[
+    {
+        "symbol": "ETH/USDT",
+        "selected": true,
+        "active": true
+    },
+    {
+        "symbol": "BTC/USDT",
+        "selected": true,
+        "active": true
+    },
+    {
+        "symbol": "DOGE/USDT",
+        "selected": true,
+        "active": true
+    },
+    {
+        "symbol": "SOL/USDT",
+        "selected": true,
+        "active": true
+    },
+    {
+        "symbol": "SUI/USDT",
+        "selected": true,
+        "active": true
+    },
+    {
+        "symbol": "wbtc/usdt",
+        "active": true
+    }
+]

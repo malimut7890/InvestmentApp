@@ -1,0 +1,12 @@
+C:\Users\Msi\Desktop\investmentapp\data\critical_settings_czacha.txt
+# Krytyczne ustawienia dla zakładki Czacha w aplikacji InvestmentApp
+# Te ustawienia i funkcjonalności są potwierdzone działaniem i nie mogą być zmieniane bez wyraźnej zgody użytkownika.
+
+1. Zapis Calkowitego kapitalu
+   - Opis: Zapis Całkowitego kapitału w czacha.json za pomocą przycisku "Zapisz" w zakładce Czacha oraz automatycznie przy zmianie zakładki i wyjściu z aplikacji. Wartość Całkowitego kapitału jest zapisywana w pliku czacha.json i wczytywana przy starcie aplikacji. Wszystkie wartości tekstowe (np. reinvest, promotion) używają ASCII (np. Wylaczona, Wlaczona) zamiast polskich znaków.
+   - Jak działa: W zakładce Czacha użytkownik wpisuje wartość w pole "Całkowity kapitał", klika "Zapisz", co aktualizuje czacha.json. Przy zmianie zakładki lub zamknięciu aplikacji wartość jest automatycznie zapisywana. Pole "Kapitał start" jest nieedytowalne i obliczane jako procent Całkowitego kapitału.
+   - Implementacja: W `czacha.py` metoda `save_total_capital` zapisuje do `czacha.json` za pomocą `json.dump`. W `czacha_data.py` metody `load_data` i `save_data` normalizują polskie znaki (np. Wyłączona → Wylaczona) przy wczytywaniu i zapisie, używając kodowania UTF-8 bez BOM i `ensure_ascii=True`. Połączenie z `main.py` przez zdarzenia `on_tab_changed` i `on_closing` w `InvestmentApp`. Wczytywanie w `czacha_data.py` przez `json.load`. Naprawiono błąd polskich znaków przez wzmocnienie normalizacji w `load_data` i `save_data`.
+   - Pliki: czacha.py, czacha_data.py, main.py, test_czacha.py
+   - Status: Wdrożona, zabetonowana
+   - Data wdrożenia: 05.07.2025
+   - Uwagi: Zapewnia trwałość wartości Całkowitego kapitału i zgodność z zasadą braku polskich znaków.

@@ -1,0 +1,39 @@
+C:\Users\Msi\Desktop\investmentapp\data\critical_settings_general.txt
+# Ogólne krytyczne ustawienia aplikacji InvestmentApp
+# Te ustawienia są potwierdzone działaniem i nie mogą być zmieniane bez wyraźnej zgody użytkownika.
+
+1. Uruchamianie aplikacji
+   - Opis: Skrypt run_app.bat aktywuje środowisko wirtualne i uruchamia aplikację jednym kliknięciem. Aplikacja uruchamia się z głównego pliku main.py, inicjalizując wszystkie zakładki. Zamykanie aplikacji zwalnia zasoby i nie blokuje wiersza poleceń.
+   - Jak działa: Użytkownik klika run_app.bat, który aktywuje venv i uruchamia main.py. Aplikacja otwiera okno GUI z zakładkami Czacha, Strategie, Awans, Symbole, API. Zamykanie (kliknięcie „X” lub Ctrl+C) zamyka pętlę mainloop i zwalnia zasoby.
+   - Implementacja: W `run_app.bat` komendy `call venv\Scripts\activate` i `python src\core\main.py`. W `main.py` klasa `InvestmentApp` inicjalizuje `tk.Tk`, `ttk.Notebook` i zakładki przez importy z `src.tabs`. Metoda `on_closing` wywołuje `quit()` i `destroy()`. Obsługa `KeyboardInterrupt` w `run` zamyka aplikację bez blokady. Połączenie z modułami zakładek przez ich klasy (`CzachaTab`, `StrategiesTab`, itp.). Naprawiono błąd blokady wiersza poleceń i `KeyboardInterrupt` przez dodanie `quit()` w `on_closing` i obsługę wyjątku w `run`.
+   - Plik: run_app.bat, main.py
+   - Status: Wdrożona, zabetonowana
+   - Data wdrożenia: 05.07.2025
+   - Uwagi: Kodowanie ANSI dla pliku .bat, stabilne uruchamianie i zamykanie w środowisku Windows.
+
+2. Brak polskich znakow w kodzie zrodlowym
+   - Opis: Kod źródłowy nie zawiera polskich znaków (np. ł, ą, ę) w komunikatach logowania ani komentarzach, aby zapewnić kompatybilność i uniknąć błędów dekodowania UTF-8.
+   - Jak działa: Wszystkie komunikaty logowania i komentarze używają znaków ASCII (np. "zakladki" zamiast "zakładki"). Pliki zapisywane w UTF-8 bez BOM.
+   - Implementacja: W każdym pliku .py używam ASCII w komentarzach i komunikatach `logging`. Pliki zapisywane w Notepad++ z kodowaniem UTF-8 bez BOM. Połączenie z `logging.basicConfig` w `main.py` dla logów w UTF-8.
+   - Pliki: Wszystkie pliki .py (np. main.py, czacha.py, strategies_gui.py)
+   - Status: Wdrożona, zabetonowana
+   - Data wdrożenia: 04.07.2025
+   - Uwagi: Zapewnia kompatybilność i unikanie błędów dekodowania.
+
+3. Każda nowa funkcjonalność w osobnym pliku
+   - Opis: Każda nowa funkcjonalność musi być zaimplementowana w osobnym pliku Python, aby zminimalizować ryzyko błędów przy poprawkach i zachować modularność. Moduły pomocnicze (np. signals_ema.py) są przechowywane w osobnym folderze strategies/utils.
+   - Jak działa: Nowe funkcjonalności (np. normalizacja symboli) są implementowane w dedykowanych plikach (np. utils/normalization.py), oddzielonych od istniejących modułów. Moduły pomocnicze przeniesiono do strategies/utils, aby oddzielić od strategii. Poprawki istniejących funkcji nie wpływają na inne pliki.
+   - Implementacja: Nowe funkcjonalności tworzone w osobnych plikach .py z importami tylko potrzebnych modułów. Przykładowo, `normalization.py` zawiera funkcje `normalize_symbol` i `normalize_interval`, używane w `strategies_backtest.py`. Moduł `signals_ema.py` przeniesiono do `strategies/utils` i zaktualizowano importy w `strategy_moving_average.py` i `strategy_ma.py`. Połączenie przez importy w modułach wywołujących.
+   - Pliki: Wszystkie nowe pliki .py dla przyszłych funkcjonalności, strategies/utils/signals_ema.py
+   - Status: Wdrożona, zabetonowana
+   - Data wdrożenia: 05.07.2025
+   - Uwagi: Zapewnia modularność i bezpieczeństwo przy wprowadzaniu zmian.
+
+4. Logowanie do pliku app.log
+   - Opis: Logi aplikacji są zapisywane do pliku C:\Users\Msi\Desktop\investmentapp\logs\app.log w formacie `%(asctime)s | %(levelname)s | %(module)s | %(message)s`, w kodowaniu UTF-8 bez BOM, z poziomem INFO dla czytelności, pokazując tylko problemy i komunikaty GUI.
+   - Jak działa: Moduły używają `logging.info` dla komunikatów sukcesu i GUI, `logging.error` dla błędów, `logging.warning` dla ostrzeżeń. Logi obejmują kluczowe operacje (np. backtest, import strategii, zapis parametrów). Separatory (np. ===) dodano dla kluczowych operacji.
+   - Implementacja: W `main.py` konfiguracja logowania przez `logging.basicConfig` z parametrami `filename`, `level=logging.INFO`, `format`, `filemode="a"`, `encoding="utf-8"`. Folder `logs` tworzony przez `os.makedirs` przed inicjalizacją. Zmieniono poziom logowania na INFO i ograniczono wpisy do kluczowych komunikatów w `main.py`, `strategies_gui.py`, `api.py`, itp. Połączenie z modułami przez import `logging`. Naprawiono błąd braku zapisu logów przez przeniesienie konfiguracji na początek `main.py`. Naprawiono czytelność przez zmianę poziomu na INFO.
+   - Pliki: main.py, wszystkie pliki .py używające `logging` (np. strategies_gui.py, strategies_logic.py, strategies_data.py, indicators.py, api.py)
+   - Status: Wdrożona, zabetonowana
+   - Data wdrożenia: 05.07.2025
+   - Uwagi: Zapewnia śledzenie problemów i komunikatów GUI.
