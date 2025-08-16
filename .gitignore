@@ -1,12 +1,24 @@
-venv/ 
-__pycache__/ 
-*.pyc 
-*.pyo 
-*.pyd 
-*.db 
-.env 
-logs/ 
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
+# Logi i artefakty uruchomieniowe
 logs/
 *.log
+
+# System/IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# (opcjonalnie, jeśli nie chcesz wersjonować dużych CSV z runtime)
+# live/**/*.csv
+# backtests/**/simulation_*.csv
+# data/exports/
 logs/
 *.log
