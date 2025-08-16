@@ -5,3 +5,8 @@ __pycache__/
 *.pyd 
 *.db 
 .env 
+logs/ 
+logs/
+*.log
+logs/
+*.log
